@@ -22,8 +22,14 @@ public class ShotController : MonoBehaviour {
 	}
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.tag == "alien") {
+        if (other.gameObject.tag == "alien")
+        {
             Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
+        else if (other.gameObject.tag == "wall") {
+            Wall script = other.gameObject.GetComponent<Wall>();
+            script.lowerHealth();
             Destroy(gameObject);
         }
         
