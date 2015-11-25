@@ -6,14 +6,19 @@ public class ShotController : MonoBehaviour {
     public float speed = .05f;
     public float maxHeight = 5f;
 
+    public GameObject alienManager;
+    public GameObject playerManager;
+
 	// Use this for initialization
 	void Start () {
-	
+        alienManager = GameObject.Find("Alien Manager");
+        playerManager = GameObject.Find("player");
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (transform.position.y > maxHeight) {
+            playerManager.GetComponent<PlayerController>().ableToShoot = true;
             Destroy(gameObject);
         }
 
@@ -22,15 +27,21 @@ public class ShotController : MonoBehaviour {
 	}
 
     void OnTriggerEnter2D(Collider2D other) {
+
+        //Kill alien
         if (other.gameObject.tag == "alien")
         {
-            Destroy(other.gameObject);
+            playerManager.GetComponent<PlayerController>().ableToShoot = true;
+            alienManager.GetComponent<AlienController>().destroyAlien(other.gameObject);
             Destroy(gameObject);
+            
         }
+        //Break wall
         else if (other.gameObject.tag == "wall") {
-            Wall script = other.gameObject.GetComponent<Wall>();
-            script.lowerHealth();
+            playerManager.GetComponent<PlayerController>().ableToShoot = true;
+            other.gameObject.GetComponent<Wall>().lowerHealth();
             Destroy(gameObject);
+            
         }
         
     }

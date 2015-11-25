@@ -6,10 +6,14 @@ public class PlayerController : MonoBehaviour {
     public float minX = -3f;
     public float maxX = 3f;
 
+    public int lives = 3;
+
     private bool goingLeft = false;
     private bool goingRight = false;
+    
 
     public Transform shot;
+    public bool ableToShoot = true;
 
 	// Use this for initialization
 	void Start () {
@@ -54,7 +58,11 @@ public class PlayerController : MonoBehaviour {
     }
 
     void shoot() {
-        Instantiate(shot, transform.position, Quaternion.identity);
+        if (ableToShoot)
+        {
+            Instantiate(shot, transform.position, Quaternion.identity);
+            ableToShoot = false;
+        }
     }
 
 
