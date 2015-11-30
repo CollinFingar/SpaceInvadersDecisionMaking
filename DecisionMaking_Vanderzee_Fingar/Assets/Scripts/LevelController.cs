@@ -27,9 +27,9 @@ public class LevelController : MonoBehaviour {
         //Reset and build aliens
         alienController.GetComponent<AlienController>().resetLevel();
 
-        //Increment Level number and add a life
+        //Increment Level number
         currentLevel++;
-        //playerController.GetComponent<PlayerController>().lives++;
+       
         
     }
 

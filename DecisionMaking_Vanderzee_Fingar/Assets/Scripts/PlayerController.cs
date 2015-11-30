@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour {
     public float minX = -3f;
     public float maxX = 3f;
 
-    //public int lives = 3;
 
     private bool goingLeft = false;
     private bool goingRight = false;
@@ -64,6 +63,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    //Not currently being used
     public void die()
     {
         transform.position = startPos;
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour {
         GameObject.Find("Alien Manager").GetComponent<AlienController>().resetLevel();
     }
 
-
+    //Used for testing
     void move() {
         if (goingLeft && transform.position.x > minX)
         {

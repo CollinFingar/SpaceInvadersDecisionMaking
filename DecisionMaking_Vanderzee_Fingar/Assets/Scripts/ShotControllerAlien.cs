@@ -36,7 +36,6 @@ public class ShotControllerAlien : MonoBehaviour {
         if (other.gameObject.tag == "Player")
         {
             alienManager.GetComponent<AlienController>().ableToShoot = true;
-            //playerManager.GetComponent<PlayerController>().die();
             GameObject.Find("Level Manager").GetComponent<LevelController>().resetGame();
             Destroy(gameObject);
         }

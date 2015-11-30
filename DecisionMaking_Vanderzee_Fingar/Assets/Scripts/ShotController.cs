@@ -5,7 +5,7 @@ public class ShotController : MonoBehaviour {
 
     public float speed = .05f;
     public float maxHeight = 5f;
-    public float minHeight = -5f;
+    
 
     public GameObject alienManager;
     public GameObject playerManager;
