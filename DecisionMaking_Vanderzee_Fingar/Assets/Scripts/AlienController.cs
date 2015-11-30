@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class AlienController : MonoBehaviour {
 
@@ -18,13 +19,15 @@ public class AlienController : MonoBehaviour {
 
     public float alienStep;     //Value for how much an alien moves by
     public float distanceBetweenAliens;
+    public float rowStep;
 
+    public Text text;
     public int score = 0;   //Total score in the game
 
 	// Use this for initialization
 	void Start () {
-        
-	}
+        text.text = "SCORE: " + score;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -49,7 +52,7 @@ public class AlienController : MonoBehaviour {
                 {
                     if (aliens[i] != null)
                     {
-                        aliens[i].transform.position = new Vector3(aliens[i].transform.position.x, aliens[i].transform.position.y - alienStep, aliens[i].transform.position.z);
+                        aliens[i].transform.position = new Vector3(aliens[i].transform.position.x, aliens[i].transform.position.y - rowStep, aliens[i].transform.position.z);
                     }
                 }
                 goingRight = false;
@@ -85,7 +88,7 @@ public class AlienController : MonoBehaviour {
                 {
                     if (aliens[i] != null)
                     {
-                        aliens[i].transform.position = new Vector3(aliens[i].transform.position.x, aliens[i].transform.position.y - alienStep, aliens[i].transform.position.z);
+                        aliens[i].transform.position = new Vector3(aliens[i].transform.position.x, aliens[i].transform.position.y - rowStep, aliens[i].transform.position.z);
                     }
                 }
                 goingRight = true;
@@ -174,13 +177,15 @@ public class AlienController : MonoBehaviour {
     {
         Destroy(alien);
         aliensAlive--;
-        score++;
+        score+=100;
+        text.text = "SCORE: " + score;
 
         //No aliens left. You win
         if(aliensAlive <= 0)
         {
             Debug.Log("You Win!");
-            score += 20;
+            score += 500;
+            text.text = "SCORE: " + score;
             levelManager.GetComponent<LevelController>().buildLevel();
         }
     }

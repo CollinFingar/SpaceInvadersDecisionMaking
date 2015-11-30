@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour {
 
@@ -8,8 +9,11 @@ public class LevelController : MonoBehaviour {
     public GameObject alienController;
     public GameObject playerController;
 
-	// Use this for initialization
-	void Start () {
+    public float score = 0f;
+
+
+    // Use this for initialization
+    void Start () {
         alienController.GetComponent<AlienController>().resetLevel();
     }
 	
@@ -28,4 +32,5 @@ public class LevelController : MonoBehaviour {
         playerController.GetComponent<PlayerController>().lives++;
         
     }
+
 }
