@@ -29,8 +29,14 @@ public class LevelController : MonoBehaviour {
 
         //Increment Level number and add a life
         currentLevel++;
-        playerController.GetComponent<PlayerController>().lives++;
+        //playerController.GetComponent<PlayerController>().lives++;
         
+    }
+
+    //Should keep track of data before resetting. Happens when player dies
+    public void resetGame()
+    {
+        Application.LoadLevel(Application.loadedLevel);
     }
 
 }
