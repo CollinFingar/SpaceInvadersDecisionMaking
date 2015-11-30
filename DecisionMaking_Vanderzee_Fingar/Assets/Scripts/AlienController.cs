@@ -78,6 +78,7 @@ public class AlienController : MonoBehaviour {
                 if(findEndAlien(true) <= bottomBound)
                 {
                     Debug.Log("Game Over");
+                    levelManager.GetComponent<LevelController>().resetGame();
                 }
             }
 
@@ -114,6 +115,7 @@ public class AlienController : MonoBehaviour {
                 if (findEndAlien(true) <= bottomBound)
                 {
                     Debug.Log("Game Over");
+                    levelManager.GetComponent<LevelController>().resetGame();
                 }
             }
 
@@ -258,5 +260,13 @@ public class AlienController : MonoBehaviour {
             //Increment col space
             colValue += distanceBetweenAliens;
         }
+
+        shooters = new List<GameObject>();
+
+        //Second row, skip two, then every other alien add
+        shooters.Add(aliens[13]);
+        shooters.Add(aliens[15]);
+        shooters.Add(aliens[17]);
+        shooters.Add(aliens[19]);
     }
 }
