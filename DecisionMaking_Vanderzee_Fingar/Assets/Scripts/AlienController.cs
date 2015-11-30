@@ -142,13 +142,16 @@ public class AlienController : MonoBehaviour {
         {
             for(int i = 0; i < shooters.Count; i++)
             {
-                //Check if the player is in a radius of a good shot
-                float distance = (Mathf.Abs(shooters[i].transform.position.x - player.transform.position.x));
-
-                if (distance <= goodShotRadius && ableToShoot)
+                if (shooters[i] != null)
                 {
-                    Instantiate(shot, shooters[i].transform.position, Quaternion.identity);
-                    ableToShoot = false;
+                    //Check if the player is in a radius of a good shot
+                    float distance = (Mathf.Abs(shooters[i].transform.position.x - player.transform.position.x));
+
+                    if (distance <= goodShotRadius && ableToShoot)
+                    {
+                        Instantiate(shot, shooters[i].transform.position, Quaternion.identity);
+                        ableToShoot = false;
+                    }
                 }
             }
         }
