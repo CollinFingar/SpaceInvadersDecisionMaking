@@ -147,7 +147,7 @@ public class AlienController : MonoBehaviour {
 
                 if (distance <= goodShotRadius && ableToShoot)
                 {
-                    Instantiate(shot, transform.position, Quaternion.identity);
+                    Instantiate(shot, shooters[i].transform.position, Quaternion.identity);
                     ableToShoot = false;
                 }
             }

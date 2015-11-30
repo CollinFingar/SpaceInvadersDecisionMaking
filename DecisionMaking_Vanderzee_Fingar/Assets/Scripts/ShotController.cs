@@ -12,6 +12,7 @@ public class ShotController : MonoBehaviour {
 
     public bool fromAlien = true;
 
+
 	// Use this for initialization
 	void Start () {
         alienManager = GameObject.Find("Alien Manager");
