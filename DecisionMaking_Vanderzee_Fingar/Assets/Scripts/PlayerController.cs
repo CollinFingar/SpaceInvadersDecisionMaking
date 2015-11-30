@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
     public float minX = -3f;
     public float maxX = 3f;
 
-    public int lives = 3;
+    //public int lives = 3;
 
     private bool goingLeft = false;
     private bool goingRight = false;
@@ -66,8 +66,8 @@ public class PlayerController : MonoBehaviour {
 
     public void die()
     {
-        lives--;
-
+        transform.position = startPos;
+        /*
         //Gameover
         if(lives == 0)
         {
@@ -79,7 +79,9 @@ public class PlayerController : MonoBehaviour {
         else
         {
             transform.position = startPos;
-        }
+        //}*/
+
+        GameObject.Find("Alien Manager").GetComponent<AlienController>().resetLevel();
     }
 
 
@@ -112,7 +114,6 @@ public class PlayerController : MonoBehaviour {
         if (ableToShoot)
         {
             GameObject aShot = Instantiate(shot, transform.position, Quaternion.identity) as GameObject;
-            aShot.GetComponent<ShotController>().fromAlien = false;
             ableToShoot = false;
         }
     }
