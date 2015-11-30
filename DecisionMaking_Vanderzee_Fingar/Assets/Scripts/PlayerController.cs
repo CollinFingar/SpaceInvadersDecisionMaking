@@ -15,9 +15,11 @@ public class PlayerController : MonoBehaviour {
     public Transform shot;
     public bool ableToShoot = true;
 
+    Vector3 startPos;
+
 	// Use this for initialization
 	void Start () {
-	
+        startPos = transform.position;
 	}
 	
 	// Update is called once per frame
@@ -59,7 +61,27 @@ public class PlayerController : MonoBehaviour {
         {
             shoot();
         }
+
     }
+
+    public void die()
+    {
+        lives--;
+
+        //Gameover
+        if(lives == 0)
+        {
+            Debug.Log("GameOver, out of lives");
+
+        }
+
+        //Reset Player
+        else
+        {
+            transform.position = startPos;
+        }
+    }
+
 
     void move() {
         if (goingLeft && transform.position.x > minX)
@@ -89,7 +111,8 @@ public class PlayerController : MonoBehaviour {
     void shoot() {
         if (ableToShoot)
         {
-            Instantiate(shot, transform.position, Quaternion.identity);
+            GameObject aShot = Instantiate(shot, transform.position, Quaternion.identity) as GameObject;
+            aShot.GetComponent<ShotController>().fromAlien = false;
             ableToShoot = false;
         }
     }

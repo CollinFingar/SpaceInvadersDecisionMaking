@@ -8,9 +8,14 @@ public class AlienController : MonoBehaviour {
     GameObject[] aliens;
     public int aliensAlive = 55;
     bool goingRight = true;
+    public bool ableToShoot = true;
+
+    public List<GameObject> shooters;
 
     public GameObject alien;
     public GameObject levelManager;
+    public GameObject player;
+    public Transform shot;
 
     public float leftBound = -3f;
     public float rightBound = 3f;
@@ -20,6 +25,7 @@ public class AlienController : MonoBehaviour {
     public float alienStep;     //Value for how much an alien moves by
     public float distanceBetweenAliens;
     public float rowStep;
+    public float goodShotRadius;
 
     public Text text;
     public int score = 0;   //Total score in the game
@@ -27,6 +33,16 @@ public class AlienController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         text.text = "SCORE: " + score;
+
+        //Add shooter aliens
+        //Select the aliens we want to shoot
+        shooters = new List<GameObject>();
+
+        //Second row, skip two, then every other alien add
+        shooters.Add(aliens[13]);
+        shooters.Add(aliens[15]);
+        shooters.Add(aliens[17]);
+        shooters.Add(aliens[19]);
     }
 	
 	// Update is called once per frame
@@ -37,6 +53,7 @@ public class AlienController : MonoBehaviour {
     void FixedUpdate ()
     {
         move();
+        shoot();
     }
     //Should be called in a fixed value of time that increases due to amount of aliens
     void move()
@@ -113,6 +130,28 @@ public class AlienController : MonoBehaviour {
             }
         }
         
+    }
+
+    //Called every fixed update to shoot if we can
+    void shoot()
+    {
+        shooters.TrimExcess();
+
+        //If they aren't all dead
+        if(shooters.Count > 0)
+        {
+            for(int i = 0; i < shooters.Count; i++)
+            {
+                //Check if the player is in a radius of a good shot
+                float distance = (Mathf.Abs(shooters[i].transform.position.x - player.transform.position.x));
+
+                if (distance <= goodShotRadius && ableToShoot)
+                {
+                    Instantiate(shot, transform.position, Quaternion.identity);
+                    ableToShoot = false;
+                }
+            }
+        }
     }
 
     //Used to find the bound of the group
