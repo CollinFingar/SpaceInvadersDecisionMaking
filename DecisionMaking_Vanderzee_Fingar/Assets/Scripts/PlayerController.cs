@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+    /*
 	void Update () {
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
@@ -43,7 +44,22 @@ public class PlayerController : MonoBehaviour {
 
         move();
 
-	}
+	}*/
+
+    void FixedUpdate() {
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        {
+            moveLeft();
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        {
+            moveRight();
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            shoot();
+        }
+    }
 
     void move() {
         if (goingLeft && transform.position.x > minX)
@@ -54,6 +70,19 @@ public class PlayerController : MonoBehaviour {
         else if (goingRight && transform.position.x < maxX) {
             Vector2 position = transform.position;
             transform.position = new Vector2(position.x + speed, position.y);
+        }
+    }
+
+    void moveLeft() {
+        if (transform.position.x > minX) {
+            Vector2 position = transform.position;
+            transform.position = new Vector2(position.x - speed * 10, position.y);
+        }
+    }
+    void moveRight() {
+        if (transform.position.x < maxX) {
+            Vector2 position = transform.position;
+            transform.position = new Vector2(position.x + speed * 10, position.y);
         }
     }
 
