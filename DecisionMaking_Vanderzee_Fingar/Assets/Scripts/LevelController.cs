@@ -72,5 +72,12 @@ public class LevelController : MonoBehaviour
         //Reset Player
         playerController.transform.position = playerController.GetComponent<PlayerController>().startPos;
         playerController.GetComponent<PlayerController>().ableToShoot = true;
+
+        //Destory all shots
+        GameObject[] shots = GameObject.FindGameObjectsWithTag("shot");
+        for(int i = 0; i < shots.Length; i++)
+        {
+            Destroy(shots[i].gameObject);
+        }
     }
 }
