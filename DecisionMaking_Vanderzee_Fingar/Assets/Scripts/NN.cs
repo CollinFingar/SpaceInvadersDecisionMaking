@@ -10,18 +10,18 @@ public class NN : MonoBehaviour {
     private AlienController ac;
 
     public float enemyShotAboveMoveWeight = 10f;
-    public float enemyShotAboveShootWeight = 10f;
+    public float enemyShotAboveShootWeight = 3f;
 
-    public float enemyShotFarMoveWeight = 10f;
-    public float enemyShotFarShootWeight = 10f;
+    public float enemyShotFarMoveWeight = 3f;
+    public float enemyShotFarShootWeight = 6f;
 
-    public float enemyAboveMoveWeight = 10f;
-    public float enemyAboveShootWeight = 10f;
+    public float enemyAboveMoveWeight = 3f;
+    public float enemyAboveShootWeight = 8f;
 
-    public float enemyNotAboveMoveWeight = 10f;
-    public float enemyNotAboveShootWeight = 10f;
+    public float enemyNotAboveMoveWeight = 8f;
+    public float enemyNotAboveShootWeight = 1f;
 
-    public float closeToEdgeMoveWeight = 10f;
+    public float closeToEdgeMoveWeight = 5f;
 
     private bool enemyShotAbove = false;
     private bool enemyShotFar = false;
