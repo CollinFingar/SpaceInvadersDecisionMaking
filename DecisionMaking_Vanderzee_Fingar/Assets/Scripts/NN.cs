@@ -30,7 +30,7 @@ public class NN : MonoBehaviour {
     public bool closeToEdge = false;
 
     private bool closeToRight = false;
-    private bool nearestEnemyRight = false;
+    public bool nearestEnemyRight = false;
 
     private float moveLeft = 0f;
     private float moveRight = 0f;
@@ -125,6 +125,9 @@ public class NN : MonoBehaviour {
                     closestAlien = distance;
                     if(aliens[i].gameObject.transform.position.x > transform.position.x) {
                         nearestEnemyRight = true;
+                    }
+                    else {
+                        nearestEnemyRight = false;
                     }
                 }
             }
