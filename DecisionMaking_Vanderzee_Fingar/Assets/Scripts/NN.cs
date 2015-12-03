@@ -39,7 +39,8 @@ public class NN : MonoBehaviour {
     public float tooCloseToEdge = .5f;
     public float enemyShotClose = .5f;
     public float enemyClose = .5f;
-
+    
+    private float pScore = 0;
     private int previousTimesMoved = 0;
     private int previousTimesShot = 0;
     private int timesMoved = 0;
@@ -178,10 +179,8 @@ public class NN : MonoBehaviour {
         {
             timesShot++;
             pc.shoot();
-        }
-
-        //We should move left
-        else if(largest == moveLeft)
+        }         //We should move left
+        else if (largest == moveLeft)
         {
             timesMoved++;
             pc.moveLeft();
@@ -194,6 +193,63 @@ public class NN : MonoBehaviour {
             pc.moveRight();
         }
     }
+    
+    void modifyWeights() {
+        if (ac.score > pScore){
+            if (timesMoved > previousTimesMoved) {
+                increaseMoveWeight();
+            } else {
+                decreaseMoveWeight();
+            }
+            if (timesShot > previousTimesShot) {
+                increaseShootWeight();
+            } else {
+                decreaseShootWeight();
+            }
+        } else if (ac.score == pScore) {
 
-   
+        } else {
+            if (timesMoved > previousTimesMoved) {
+                decreaseMoveWeight();
+            } else {
+                increaseMoveWeight();
+            }
+            if (timesShot > previousTimesShot) {
+                decreaseShootWeight();
+            } else {
+                increaseShootWeight();
+            }
+        }
+        previousTimesShot = timesShot;
+        timesShot = 0;
+        previousTimesMoved = timesMoved;
+        timesMoved = 0;
+    }
+
+    void increaseMoveWeight() {
+        enemyShotAboveMoveWeight += 1;
+        enemyAboveMoveWeight += 1;
+        closeToEdgeMoveWeight += 1;
+        enemyShotFarMoveWeight += 1;
+        enemyNotAboveMoveWeight += 1;
+    }
+    void increaseShootWeight() {
+        enemyAboveShootWeight += 1;
+        enemyNotAboveShootWeight += 1;
+        enemyShotAboveShootWeight += 1;
+        enemyShotFarShootWeight += 1;
+    }
+    void decreaseMoveWeight() {
+        enemyShotAboveMoveWeight -= 1;
+        enemyAboveMoveWeight -= 1;
+        closeToEdgeMoveWeight -= 1;
+        enemyShotFarMoveWeight -= 1;
+        enemyNotAboveMoveWeight -= 1;
+    }
+    void decreaseShootWeight() {
+        enemyAboveShootWeight -= 1;
+        enemyNotAboveShootWeight -= 1;
+        enemyShotAboveShootWeight -= 1;
+        enemyShotFarShootWeight -= 1;
+    }
 }

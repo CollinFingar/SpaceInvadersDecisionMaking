@@ -27,6 +27,7 @@ public class LevelController : MonoBehaviour
 
     public void buildLevel()
     {
+
         //Reset and build aliens
         alienController.GetComponent<AlienController>().resetLevel();
 
