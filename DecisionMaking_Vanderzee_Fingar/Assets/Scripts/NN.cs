@@ -40,6 +40,8 @@ public class NN : MonoBehaviour {
     public float enemyShotClose = .5f;
     public float enemyClose = .5f;
 
+    private float pScore = 0;
+
     // Use this for initialization
     void Start () {
         pc = player.GetComponent<PlayerController>();
@@ -157,6 +159,40 @@ public class NN : MonoBehaviour {
     }
 
 
+    void modifyWeights() {
+        if (ac.score > pScore){
+            
+        } else if (ac.score == pScore) {
 
+        } else {
 
+        }
+    }
+
+    void increaseMoveWeight() {
+        enemyShotAboveMoveWeight += 1;
+        enemyAboveMoveWeight += 1;
+        closeToEdgeMoveWeight += 1;
+        enemyShotFarMoveWeight += 1;
+        enemyNotAboveMoveWeight += 1;
+    }
+    void increaseShootWeight() {
+        enemyAboveShootWeight += 1;
+        enemyNotAboveShootWeight += 1;
+        enemyShotAboveShootWeight += 1;
+        enemyShotFarShootWeight += 1;
+    }
+    void decreaseMoveWeight() {
+        enemyShotAboveMoveWeight -= 1;
+        enemyAboveMoveWeight -= 1;
+        closeToEdgeMoveWeight -= 1;
+        enemyShotFarMoveWeight -= 1;
+        enemyNotAboveMoveWeight -= 1;
+    }
+    void decreaseShootWeight() {
+        enemyAboveShootWeight -= 1;
+        enemyNotAboveShootWeight -= 1;
+        enemyShotAboveShootWeight -= 1;
+        enemyShotFarShootWeight -= 1;
+    }
 }
