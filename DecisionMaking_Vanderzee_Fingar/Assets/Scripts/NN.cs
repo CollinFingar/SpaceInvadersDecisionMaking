@@ -23,11 +23,11 @@ public class NN : MonoBehaviour {
 
     public float closeToEdgeMoveWeight = 5f;
 
-    private bool enemyShotAbove = false;
-    private bool enemyShotFar = false;
-    private bool enemyAbove = false;
-    private bool enemyNotAbove = false;
-    private bool closeToEdge = false;
+    public bool enemyShotAbove = false;
+    public bool enemyShotFar = false;
+    public bool enemyAbove = false;
+    public bool enemyNotAbove = false;
+    public bool closeToEdge = false;
 
     private bool closeToRight = false;
     private bool nearestEnemyRight = false;
@@ -182,23 +182,52 @@ public class NN : MonoBehaviour {
         }         //We should move left
         else if (largest == moveLeft)
         {
-            timesMoved++;
-            pc.moveLeft();
+            if (closeToEdge) {
+                if (closeToRight) {
+                    timesMoved++;
+                    pc.moveLeft();
+                } else {
+                    pc.shoot();
+                }
+            } else {
+                timesMoved++;
+                pc.moveLeft();
+            }
+            
         }
 
         //We should move right
         else
         {
-            timesMoved++;
-            pc.moveRight();
+            
+            if (closeToEdge)
+            {
+                if (closeToRight)
+                {
+                    pc.shoot();
+                }
+                else
+                {
+                    timesMoved++;
+                    pc.moveRight();
+                }
+            }
+            else
+            {
+                timesMoved++;
+                pc.moveRight();
+            }
         }
     }
     
     public void modifyWeights(bool wasShot) {
         if (wasShot) {
-            enemyShotAboveMoveWeight++;
+            //enemyShotAboveMoveWeight++;
         }
-        else if (ac.score > pScore){
+        if(timesShot == 0) {
+            enemyAboveShootWeight += 1;
+        }
+        if (ac.score > pScore){
             if (timesMoved >= previousTimesMoved) {
                 increaseMoveWeight();
             } else {
