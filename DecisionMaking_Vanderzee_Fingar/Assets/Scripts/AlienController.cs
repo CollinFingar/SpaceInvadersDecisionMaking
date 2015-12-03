@@ -80,7 +80,7 @@ public class AlienController : MonoBehaviour {
                 if(findEndAlien(true) <= bottomBound)
                 {
                     Debug.Log("Game Over");
-                    levelManager.GetComponent<LevelController>().resetGame();
+                    levelManager.GetComponent<LevelController>().resetGame(false);
                 }
             }
 
@@ -117,7 +117,7 @@ public class AlienController : MonoBehaviour {
                 if (findEndAlien(true) <= bottomBound)
                 {
                     Debug.Log("Game Over");
-                    levelManager.GetComponent<LevelController>().resetGame();
+                    levelManager.GetComponent<LevelController>().resetGame(false);
                 }
             }
 

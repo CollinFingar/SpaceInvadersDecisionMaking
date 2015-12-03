@@ -42,9 +42,9 @@ public class LevelController : MonoBehaviour
     }
 
     //Should keep track of data before resetting. Happens when player dies
-    public void resetGame()
+    public void resetGame(bool wasShot)
     {
-        nn.modifyWeights();
+        nn.modifyWeights(wasShot);
         alienController.GetComponent<AlienController>().score = 0;
         //Application.LoadLevel(Application.loadedLevel);
         GameObject theAliens = GameObject.Find("Aliens");

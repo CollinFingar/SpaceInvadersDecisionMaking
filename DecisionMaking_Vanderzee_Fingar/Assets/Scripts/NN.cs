@@ -138,9 +138,9 @@ public class NN : MonoBehaviour {
             moveRight += enemyShotAboveMoveWeight;
             shoot += enemyShotAboveShootWeight;
         } else if (enemyShotFar) {
-            moveLeft += enemyShotFarMoveWeight;
-            moveRight += enemyShotFarMoveWeight;
-            shoot += enemyShotFarShootWeight;
+            //moveLeft += enemyShotFarMoveWeight;
+            //moveRight += enemyShotFarMoveWeight;
+            //shoot += enemyShotFarShootWeight;
         }
 
         if (enemyAbove) {
@@ -194,8 +194,11 @@ public class NN : MonoBehaviour {
         }
     }
     
-    public void modifyWeights() {
-        if (ac.score > pScore){
+    public void modifyWeights(bool wasShot) {
+        if (wasShot) {
+            enemyShotAboveMoveWeight++;
+        }
+        else if (ac.score > pScore){
             if (timesMoved >= previousTimesMoved) {
                 increaseMoveWeight();
             } else {
