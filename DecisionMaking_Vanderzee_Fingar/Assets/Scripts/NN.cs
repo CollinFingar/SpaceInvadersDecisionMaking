@@ -40,6 +40,11 @@ public class NN : MonoBehaviour {
     public float enemyShotClose = .5f;
     public float enemyClose = .5f;
 
+    private int previousTimesMoved = 0;
+    private int previousTimesShot = 0;
+    private int timesMoved = 0;
+    private int timesShot = 0;
+
     // Use this for initialization
     void Start () {
         pc = player.GetComponent<PlayerController>();
@@ -48,8 +53,15 @@ public class NN : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        //Set bools according to conditions
         setBools();
+
+        //Add up the weights of each condition
         addWeights();
+
+        //Find and do the most strategic thing
+        compareWeights();
 	}
 
 
@@ -156,7 +168,32 @@ public class NN : MonoBehaviour {
         }
     }
 
+    void compareWeights()
+    {
+        //Compare the three weights for largest.
+        float largest = Mathf.Max(shoot, moveLeft, moveRight);
 
+        //We should shoot
+        if(largest == shoot)
+        {
+            timesShot++;
+            pc.shoot();
+        }
 
+        //We should move left
+        else if(largest == moveLeft)
+        {
+            timesMoved++;
+            pc.moveLeft();
+        }
 
+        //We should move right
+        else
+        {
+            timesMoved++;
+            pc.moveRight();
+        }
+    }
+
+   
 }

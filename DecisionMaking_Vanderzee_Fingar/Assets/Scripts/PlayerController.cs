@@ -97,20 +97,20 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void moveLeft() {
+    public void moveLeft() {
         if (transform.position.x > minX) {
             Vector2 position = transform.position;
             transform.position = new Vector2(position.x - speed * 10, position.y);
         }
     }
-    void moveRight() {
+    public void moveRight() {
         if (transform.position.x < maxX) {
             Vector2 position = transform.position;
             transform.position = new Vector2(position.x + speed * 10, position.y);
         }
     }
 
-    void shoot() {
+    public void shoot() {
         if (ableToShoot)
         {
             GameObject aShot = Instantiate(shot, transform.position, Quaternion.identity) as GameObject;
