@@ -224,6 +224,7 @@ public class NN : MonoBehaviour {
         timesShot = 0;
         previousTimesMoved = timesMoved;
         timesMoved = 0;
+        pScore = ac.score;
     }
 
     void increaseMoveWeight() {
