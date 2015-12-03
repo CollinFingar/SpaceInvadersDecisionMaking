@@ -52,6 +52,8 @@ public class AlienController : MonoBehaviour {
 
     void FixedUpdate ()
     {
+        score += 1;
+        text.text = "SCORE: " + score;
         move();
         shoot();
     }

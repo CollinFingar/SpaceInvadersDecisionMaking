@@ -207,7 +207,12 @@ public class NN : MonoBehaviour {
                 decreaseShootWeight();
             }
         } else if (ac.score == pScore) {
-
+            float rand = Random.Range(1, 10);
+            if (rand > 5) {
+                increaseMoveWeight();
+            } else {
+                increaseShootWeight();
+            }
         } else {
             if (timesMoved >= previousTimesMoved) {
                 decreaseMoveWeight();
