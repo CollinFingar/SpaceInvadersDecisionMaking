@@ -268,5 +268,7 @@ public class AlienController : MonoBehaviour {
         shooters.Add(aliens[15]);
         shooters.Add(aliens[17]);
         shooters.Add(aliens[19]);
+
+        ableToShoot = true;
     }
 }

@@ -26,8 +26,18 @@ public class Wall : MonoBehaviour {
             health--;
         }
         else {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
+    }
+
+    public void reset()
+    {
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        health = 3;
     }
 
 }

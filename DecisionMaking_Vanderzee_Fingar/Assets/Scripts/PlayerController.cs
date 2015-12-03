@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour {
     public Transform shot;
     public bool ableToShoot = true;
 
-    Vector3 startPos;
+    public Vector3 startPos;
 
 	// Use this for initialization
 	void Start () {
@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour {
     public void die()
     {
         transform.position = startPos;
+        ableToShoot = true;
         /*
         //Gameover
         if(lives == 0)

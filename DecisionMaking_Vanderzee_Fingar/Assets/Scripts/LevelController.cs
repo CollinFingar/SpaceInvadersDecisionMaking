@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class LevelController : MonoBehaviour {
+public class LevelController : MonoBehaviour
+{
 
     int currentLevel = 0;
 
@@ -13,14 +14,16 @@ public class LevelController : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         alienController.GetComponent<AlienController>().resetLevel();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public void buildLevel()
     {
@@ -29,14 +32,38 @@ public class LevelController : MonoBehaviour {
 
         //Increment Level number
         currentLevel++;
-       
-        
+
+
     }
 
     //Should keep track of data before resetting. Happens when player dies
     public void resetGame()
     {
-        Application.LoadLevel(Application.loadedLevel);
-    }
+        //Application.LoadLevel(Application.loadedLevel);
+        GameObject theAliens = GameObject.Find("Aliens");
 
+        //Delete current aliens
+        for (int i = 0; i < theAliens.transform.childCount; i++)
+        {
+            Destroy(theAliens.transform.GetChild(i));
+        }
+
+        //Rebuild aliens
+        alienController.GetComponent<AlienController>().resetLevel();
+
+        //Rebuild walls
+        GameObject[] walls = GameObject.FindGameObjectsWithTag("wall");
+        for(int i = 0; i < walls.Length; i++)
+        {
+            walls[i].GetComponent<Wall>().reset();
+        }
+
+        //Reset Score and Level Number
+        score = 0;
+        currentLevel = 0;
+
+        //Reset Player
+        playerController.transform.position = playerController.GetComponent<PlayerController>().startPos;
+        playerController.GetComponent<PlayerController>().ableToShoot = true;
+    }
 }
