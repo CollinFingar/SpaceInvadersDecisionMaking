@@ -46,7 +46,7 @@ public class LevelController : MonoBehaviour
         //Delete current aliens
         for (int i = 0; i < theAliens.transform.childCount; i++)
         {
-            Destroy(theAliens.transform.GetChild(i));
+            Destroy(theAliens.transform.GetChild(i).gameObject);
         }
 
         //Rebuild aliens
