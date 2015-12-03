@@ -43,8 +43,8 @@ public class NN : MonoBehaviour {
     private float pScore = 0;
     private int previousTimesMoved = 0;
     private int previousTimesShot = 0;
-    private int timesMoved = 0;
-    private int timesShot = 0;
+    private int timesMoved = 10;
+    private int timesShot = 10;
 
     // Use this for initialization
     void Start () {
@@ -194,9 +194,9 @@ public class NN : MonoBehaviour {
         }
     }
     
-    void modifyWeights() {
+    public void modifyWeights() {
         if (ac.score > pScore){
-            if (timesMoved > previousTimesMoved) {
+            if (timesMoved >= previousTimesMoved) {
                 increaseMoveWeight();
             } else {
                 decreaseMoveWeight();
@@ -209,12 +209,12 @@ public class NN : MonoBehaviour {
         } else if (ac.score == pScore) {
 
         } else {
-            if (timesMoved > previousTimesMoved) {
+            if (timesMoved >= previousTimesMoved) {
                 decreaseMoveWeight();
             } else {
                 increaseMoveWeight();
             }
-            if (timesShot > previousTimesShot) {
+            if (timesShot >= previousTimesShot) {
                 decreaseShootWeight();
             } else {
                 increaseShootWeight();

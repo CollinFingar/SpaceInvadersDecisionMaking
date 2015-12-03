@@ -9,6 +9,9 @@ public class LevelController : MonoBehaviour
 
     public GameObject alienController;
     public GameObject playerController;
+    public GameObject neuralObject;
+
+    private NN nn;
 
     public float score = 0f;
 
@@ -16,6 +19,7 @@ public class LevelController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        nn = neuralObject.GetComponent<NN>();
         alienController.GetComponent<AlienController>().resetLevel();
     }
 
@@ -40,6 +44,8 @@ public class LevelController : MonoBehaviour
     //Should keep track of data before resetting. Happens when player dies
     public void resetGame()
     {
+        nn.modifyWeights();
+        alienController.GetComponent<AlienController>().score = 0;
         //Application.LoadLevel(Application.loadedLevel);
         GameObject theAliens = GameObject.Find("Aliens");
 
