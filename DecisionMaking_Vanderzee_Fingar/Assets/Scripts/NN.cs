@@ -118,20 +118,21 @@ public class NN : MonoBehaviour {
         }
 
         //===Enemy Alien===
-        AlienController[] aliens = FindObjectsOfType<AlienController>();
+        GameObject[] aliens = GameObject.FindGameObjectsWithTag("alien");
         //If there is at least one shot
         if (aliens.Length != 0)
         {
             float closestAlien = Mathf.Infinity;
             for (int i = 0; i < aliens.Length; i++)
             {
-                float distance = Mathf.Abs(aliens[i].gameObject.transform.position.x - pc.gameObject.transform.position.x);
+                AlienController aCont = aliens[i].GetComponent<AlienController>();
+                float distance = Mathf.Abs(aliens[i].transform.position.x - pc.gameObject.transform.position.x);
                 if (distance < enemyClose){
                     enemyAbove = true;
                 }
                 if (distance < closestAlien){
                     closestAlien = distance;
-                    if(aliens[i].gameObject.transform.position.x > pc.gameObject.transform.position.x) {
+                    if(aliens[i].transform.position.x > pc.gameObject.transform.position.x) {
                         nearestEnemyRight = true;
                     }
                     else {
