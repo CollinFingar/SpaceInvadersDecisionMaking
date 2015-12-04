@@ -375,30 +375,30 @@ public class NN : MonoBehaviour {
             float rand = Random.Range(1, 10);
             if (rand > 5)
             {
-                if (enemyAboveMoveWeight < maxWeight)
+                if (rand <= 7 && enemyAboveMoveWeight < maxWeight)
                 {
                     enemyAboveMoveWeight++;
                 }
-                if (enemyNotAboveMoveWeight < maxWeight)
+                else if (rand == 8 && enemyNotAboveMoveWeight < maxWeight)
                 {
                     enemyNotAboveMoveWeight++;
                 }
-                if (enemyShotAboveMoveWeight < maxWeight)
+                else if (enemyShotAboveMoveWeight < maxWeight)
                 {
                     enemyShotAboveMoveWeight++;
                 }
             }
             else
             {
-                if (enemyAboveShootWeight < maxWeight)
+                if ( rand <= 3 && enemyAboveShootWeight < maxWeight)
                 {
                     enemyAboveShootWeight++;
                 }
-                if (enemyNotAboveShootWeight < maxWeight)
+                else if (rand == 4 && enemyNotAboveShootWeight < maxWeight)
                 {
                     enemyNotAboveShootWeight++;
                 }
-                if (enemyShotAboveShootWeight < maxWeight)
+                if (rand == 5 && enemyShotAboveShootWeight < maxWeight)
                 {
                     enemyShotAboveShootWeight++;
                 }
