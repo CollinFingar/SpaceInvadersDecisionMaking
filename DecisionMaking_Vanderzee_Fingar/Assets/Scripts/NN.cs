@@ -226,7 +226,7 @@ public class NN : MonoBehaviour {
 
                 else
                 {
-                    pc.shoot();
+                    //pc.shoot();
                 }
             }
 
@@ -264,7 +264,7 @@ public class NN : MonoBehaviour {
             {
                 if (closeToRight)
                 {
-                    pc.shoot();
+                    //pc.shoot();
                 }
                 else
                 {
