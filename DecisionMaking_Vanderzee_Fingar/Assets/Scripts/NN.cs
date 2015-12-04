@@ -390,7 +390,7 @@ public class NN : MonoBehaviour {
             }
             else
             {
-                if ( rand <= 3 && enemyAboveShootWeight < maxWeight)
+                if (rand <= 3 && enemyAboveShootWeight < maxWeight)
                 {
                     enemyAboveShootWeight++;
                 }
@@ -398,7 +398,7 @@ public class NN : MonoBehaviour {
                 {
                     enemyNotAboveShootWeight++;
                 }
-                if (rand == 5 && enemyShotAboveShootWeight < maxWeight)
+                else if (rand == 5 && enemyShotAboveShootWeight < maxWeight)
                 {
                     enemyShotAboveShootWeight++;
                 }
