@@ -44,6 +44,10 @@ public class LevelController : MonoBehaviour
     //Should keep track of data before resetting. Happens when player dies
     public void resetGame(bool wasShot)
     {
+        //Update Generation
+        playerController.GetComponent<PlayerController>().generation++;
+        playerController.GetComponent<PlayerController>().text.text = "Generation " + playerController.GetComponent<PlayerController>().generation;
+
         nn.modifyWeights(wasShot);
         alienController.GetComponent<AlienController>().score = 0;
         //Application.LoadLevel(Application.loadedLevel);
