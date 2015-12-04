@@ -57,6 +57,7 @@ public class NN : MonoBehaviour {
     private int prevTimesShotEnemyAbove = 0;
     private int prevTimesShotEnemyNotAbove = 0;
 
+    private int maxWeight = 15;
 
     // Use this for initialization
     void Start () {
@@ -310,7 +311,7 @@ public class NN : MonoBehaviour {
         {
 
             //Move weights check
-            if (timesMovedEnemyAbove >= prevTimesMovedEnemyAbove)
+            if (timesMovedEnemyAbove >= prevTimesMovedEnemyAbove && timesMovedEnemyAbove < maxWeight)
             {
                 enemyAboveMoveWeight++;
             }
@@ -319,7 +320,7 @@ public class NN : MonoBehaviour {
                 enemyAboveMoveWeight--;
             }
 
-            if (timesMovedEnemyNotAbove >= prevTimesMovedEnemyNotAbove)
+            if (timesMovedEnemyNotAbove >= prevTimesMovedEnemyNotAbove && timesMovedEnemyNotAbove < maxWeight)
             {
                 enemyNotAboveMoveWeight++;
             }
@@ -328,7 +329,7 @@ public class NN : MonoBehaviour {
                 enemyNotAboveMoveWeight--;
             }
 
-            if (timesMovedShotAbove >= prevTimesMovedShotAbove)
+            if (timesMovedShotAbove >= prevTimesMovedShotAbove && timesMovedShotAbove < maxWeight)
             {
                 enemyShotAboveMoveWeight++;
             }
@@ -338,7 +339,7 @@ public class NN : MonoBehaviour {
             }
 
             //Shoot weights check
-            if (timesShotEnemyAbove >= prevTimesShotEnemyAbove)
+            if (timesShotEnemyAbove >= prevTimesShotEnemyAbove && timesShotEnemyAbove < maxWeight)
             {
                 enemyAboveShootWeight++;
             }
@@ -347,7 +348,7 @@ public class NN : MonoBehaviour {
                 enemyAboveShootWeight--;
             }
 
-            if (timesShotEnemyNotAbove >= prevTimesShotEnemyNotAbove)
+            if (timesShotEnemyNotAbove >= prevTimesShotEnemyNotAbove && timesShotEnemyNotAbove < maxWeight)
             {
                 enemyNotAboveShootWeight++;
             }
@@ -356,7 +357,7 @@ public class NN : MonoBehaviour {
                 enemyNotAboveShootWeight--;
             }
 
-            if (timesShotEnemyShotAbove >= prevTimesShotEnemyShotAbove)
+            if (timesShotEnemyShotAbove >= prevTimesShotEnemyShotAbove && timesShotEnemyShotAbove< maxWeight)
             {
                 enemyShotAboveShootWeight++;
             }
@@ -373,15 +374,33 @@ public class NN : MonoBehaviour {
             float rand = Random.Range(1, 10);
             if (rand > 5)
             {
-                enemyAboveMoveWeight++;
-                enemyNotAboveMoveWeight++;
-                enemyShotAboveMoveWeight++;
+                if (enemyAboveMoveWeight < maxWeight)
+                {
+                    enemyAboveMoveWeight++;
+                }
+                if (enemyNotAboveMoveWeight < maxWeight)
+                {
+                    enemyNotAboveMoveWeight++;
+                }
+                if (enemyShotAboveMoveWeight < maxWeight)
+                {
+                    enemyShotAboveMoveWeight++;
+                }
             }
             else
             {
-                enemyAboveShootWeight++;
-                enemyNotAboveShootWeight++;
-                enemyShotAboveShootWeight++;
+                if (enemyAboveShootWeight < maxWeight)
+                {
+                    enemyAboveShootWeight++;
+                }
+                if (enemyNotAboveShootWeight < maxWeight)
+                {
+                    enemyNotAboveShootWeight++;
+                }
+                if (enemyShotAboveShootWeight < maxWeight)
+                {
+                    enemyShotAboveShootWeight++;
+                }
             }
         }
 
@@ -393,7 +412,7 @@ public class NN : MonoBehaviour {
             {
                 enemyAboveMoveWeight--;
             }
-            else
+            else if(enemyAboveMoveWeight < maxWeight)
             {
                 enemyAboveMoveWeight++;
             }
@@ -402,7 +421,7 @@ public class NN : MonoBehaviour {
             {
                 enemyNotAboveMoveWeight--;
             }
-            else
+            else if(enemyNotAboveMoveWeight < maxWeight)
             {
                 enemyNotAboveMoveWeight++;
             }
@@ -411,7 +430,7 @@ public class NN : MonoBehaviour {
             {
                 enemyShotAboveMoveWeight--;
             }
-            else
+            else if(enemyShotAboveMoveWeight < maxWeight)
             {
                 enemyShotAboveMoveWeight++;
             }
@@ -421,7 +440,7 @@ public class NN : MonoBehaviour {
             {
                 enemyAboveShootWeight--;
             }
-            else
+            else if(enemyAboveShootWeight < maxWeight)
             {
                 enemyAboveShootWeight++;
             }
@@ -430,7 +449,7 @@ public class NN : MonoBehaviour {
             {
                 enemyNotAboveShootWeight--;
             }
-            else
+            else if(enemyNotAboveShootWeight < maxWeight)
             {
                 enemyNotAboveShootWeight++;
             }
@@ -439,7 +458,7 @@ public class NN : MonoBehaviour {
             {
                 enemyShotAboveShootWeight--;
             }
-            else
+            else if(enemyShotAboveShootWeight < maxWeight)
             {
                 enemyShotAboveShootWeight++;
             }
