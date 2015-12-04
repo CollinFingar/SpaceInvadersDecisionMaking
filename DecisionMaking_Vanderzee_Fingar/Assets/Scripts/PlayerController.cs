@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
     public float speed = .05f;
@@ -16,9 +18,14 @@ public class PlayerController : MonoBehaviour {
 
     public Vector3 startPos;
 
+    public Text text;
+    public int generation = 0;
+
 	// Use this for initialization
 	void Start () {
         startPos = transform.position;
+
+        text.text = "Generation " + generation;
 	}
 	
 	// Update is called once per frame
@@ -46,6 +53,8 @@ public class PlayerController : MonoBehaviour {
         move();
 
 	}*/
+
+
 
     void FixedUpdate() {
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
