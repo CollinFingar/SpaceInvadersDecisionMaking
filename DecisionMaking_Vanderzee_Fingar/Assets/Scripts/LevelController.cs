@@ -35,8 +35,9 @@ public class LevelController : MonoBehaviour
         //Reset and build aliens
         alienController.GetComponent<AlienController>().resetLevel();
 
-        //Increment Level number
+        //Increment Level number and speed
         currentLevel++;
+        alienController.GetComponent<AlienController>().alienStep += alienController.GetComponent<AlienController>().origionalSpeed/2;
 
 
     }
@@ -61,6 +62,7 @@ public class LevelController : MonoBehaviour
 
         //Rebuild aliens
         alienController.GetComponent<AlienController>().resetLevel();
+        alienController.GetComponent<AlienController>().alienStep = alienController.GetComponent<AlienController>().origionalSpeed;
 
         //Rebuild walls
         GameObject[] walls = GameObject.FindGameObjectsWithTag("wall");

@@ -23,6 +23,7 @@ public class AlienController : MonoBehaviour {
     public float topBound;
 
     public float alienStep;     //Value for how much an alien moves by
+    public float origionalSpeed;
     public float distanceBetweenAliens;
     public float rowStep;
     public float goodShotRadius;
@@ -38,11 +39,15 @@ public class AlienController : MonoBehaviour {
         //Select the aliens we want to shoot
         shooters = new List<GameObject>();
 
-        //Second row, skip two, then every other alien add
+        //Second row, every other alien add
+        shooters.Add(aliens[11]);
         shooters.Add(aliens[13]);
         shooters.Add(aliens[15]);
         shooters.Add(aliens[17]);
         shooters.Add(aliens[19]);
+        shooters.Add(aliens[21]);
+
+        origionalSpeed = alienStep;
     }
 	
 	// Update is called once per frame
@@ -223,14 +228,14 @@ public class AlienController : MonoBehaviour {
     {
         Destroy(alien);
         aliensAlive--;
-        score+=100;
+        score+=200;
         text.text = "SCORE: " + score;
 
         //No aliens left. You win
         if(aliensAlive <= 0)
         {
             Debug.Log("You Win!");
-            score += 500;
+            score += 1000;
             text.text = "SCORE: " + score;
             levelManager.GetComponent<LevelController>().buildLevel();
         }
@@ -266,10 +271,12 @@ public class AlienController : MonoBehaviour {
         shooters = new List<GameObject>();
 
         //Second row, skip two, then every other alien add
+        shooters.Add(aliens[11]);
         shooters.Add(aliens[13]);
         shooters.Add(aliens[15]);
         shooters.Add(aliens[17]);
         shooters.Add(aliens[19]);
+        shooters.Add(aliens[21]);
 
         ableToShoot = true;
     }

@@ -39,8 +39,8 @@ public class NN : MonoBehaviour {
     public float enemyClose = .5f;
     
     private float pScore = 0;
-    private int previousTimesMoved = 0;
-    private int previousTimesShot = 0;
+    //private int previousTimesMoved = 0;
+    //private int previousTimesShot = 0;
     // private int timesMoved = 10;
     // private int timesShot = 10;
     private int timesMovedShotAbove = 0;
@@ -125,7 +125,7 @@ public class NN : MonoBehaviour {
             float closestAlien = Mathf.Infinity;
             for (int i = 0; i < aliens.Length; i++)
             {
-                AlienController aCont = aliens[i].GetComponent<AlienController>();
+                //AlienController aCont = aliens[i].GetComponent<AlienController>();
                 float distance = Mathf.Abs(aliens[i].transform.position.x - pc.gameObject.transform.position.x);
                 if (distance < enemyClose){
                     enemyAbove = true;
@@ -189,7 +189,7 @@ public class NN : MonoBehaviour {
         if(largest == shoot)
         {
             //Find the most contributing factor to the shot
-            float hightestWeight = Mathf.Max(enemyAboveShootWeight, enemyNotAboveShootWeight, enemyShotAboveShootWeight);
+            /*float hightestWeight = Mathf.Max(enemyAboveShootWeight, enemyNotAboveShootWeight, enemyShotAboveShootWeight);
             if(hightestWeight == enemyAboveShootWeight)
             {
                 timesShotEnemyAbove++;
@@ -204,7 +204,20 @@ public class NN : MonoBehaviour {
             {
                 timesShotEnemyShotAbove++;
             }
+            */
+            if (enemyAbove)
+            {
+                timesShotEnemyAbove++;
+            }
+            else
+            {
+                timesShotEnemyNotAbove++;
+            }
 
+            if (enemyShotAbove)
+            {
+                timesShotEnemyShotAbove++;
+            }
             pc.shoot();
         }         
         
@@ -213,7 +226,7 @@ public class NN : MonoBehaviour {
         {
 
             //Find most contributing factor to the move
-            float hightestWeight = Mathf.Max(enemyAboveMoveWeight, enemyNotAboveMoveWeight, enemyShotAboveMoveWeight);
+           // float hightestWeight = Mathf.Max(enemyAboveMoveWeight, enemyNotAboveMoveWeight, enemyShotAboveMoveWeight);
 
             //Close to edge
             if (closeToEdge)
@@ -232,7 +245,7 @@ public class NN : MonoBehaviour {
 
             //Not on edge. Move normally
             else
-            {
+            {/*
                 if(hightestWeight == enemyAboveMoveWeight)
                 {
                     timesMovedEnemyAbove++;
@@ -247,6 +260,20 @@ public class NN : MonoBehaviour {
                 {
                     timesMovedShotAbove++;
                 }
+                */
+
+                if (enemyAbove)
+                {
+                    timesMovedEnemyAbove++;
+                }
+                else
+                {
+                    timesMovedEnemyNotAbove++;
+                }
+                if (enemyShotAbove)
+                {
+                    timesMovedShotAbove++;
+                }
 
                 pc.moveLeft();
             }
@@ -257,7 +284,7 @@ public class NN : MonoBehaviour {
         else
         {
             //Find most contributing factor to the move
-            float hightestWeight = Mathf.Max(enemyAboveMoveWeight, enemyNotAboveMoveWeight, enemyShotAboveMoveWeight);
+           // float hightestWeight = Mathf.Max(enemyAboveMoveWeight, enemyNotAboveMoveWeight, enemyShotAboveMoveWeight);
 
             //Close to edge
             if (closeToEdge)
@@ -276,6 +303,7 @@ public class NN : MonoBehaviour {
             //Not close to edge. move normally
             else
             {
+                /*
                 if (hightestWeight == enemyAboveMoveWeight)
                 {
                     timesMovedEnemyAbove++;
@@ -289,7 +317,22 @@ public class NN : MonoBehaviour {
                 else
                 {
                     timesMovedShotAbove++;
+                }*/
+
+                if (enemyAbove)
+                {
+                    timesMovedEnemyAbove++;
                 }
+                else
+                {
+                    timesMovedEnemyNotAbove++;
+                }
+                if (enemyShotAbove)
+                {
+                    timesMovedShotAbove++;
+                }
+
+
                 pc.moveRight();
             }
         }
@@ -300,13 +343,7 @@ public class NN : MonoBehaviour {
     }
     
     public void modifyWeights(bool wasShot) {
-       if (wasShot) {
-            //enemyShotAboveMoveWeight++;
-        }
-        /*if(timesShot == 0) {
-            enemyAboveShootWeight += 1;
-        }*/
-
+      
         //If our score is greater this time
         if (ac.score > pScore)
         {
@@ -334,6 +371,10 @@ public class NN : MonoBehaviour {
             {
                 enemyShotAboveMoveWeight++;
             }
+            else if (wasShot && enemyShotAboveMoveWeight < maxWeight)
+            {
+                enemyShotAboveMoveWeight++;
+            }
             else
             {
                 enemyShotAboveMoveWeight--;
@@ -341,6 +382,10 @@ public class NN : MonoBehaviour {
 
             //Shoot weights check
             if (timesShotEnemyAbove >= prevTimesShotEnemyAbove && timesShotEnemyAbove < maxWeight)
+            {
+                enemyAboveShootWeight++;
+            }
+            else if (!wasShot && enemyAboveShootWeight < maxWeight)
             {
                 enemyAboveShootWeight++;
             }
@@ -372,8 +417,19 @@ public class NN : MonoBehaviour {
         //Our score is equal to last one 
         else if (ac.score == pScore)
         {
-            float rand = Random.Range(1, 10);
-            if (rand > 5)
+            //float rand = Random.Range(1, 10);
+
+            if (wasShot && enemyShotAboveMoveWeight < maxWeight)
+            {
+                enemyShotAboveMoveWeight++;
+            }
+
+            else if (!wasShot && enemyAboveShootWeight < maxWeight)
+            {
+                enemyAboveShootWeight++;
+            }
+            /*
+            else if (rand > 5)
             {
                 if (rand <= 7 && enemyAboveMoveWeight < maxWeight)
                 {
@@ -402,7 +458,7 @@ public class NN : MonoBehaviour {
                 {
                     enemyShotAboveShootWeight++;
                 }
-            }
+            }*/
         }
 
         //Score is less
@@ -427,17 +483,27 @@ public class NN : MonoBehaviour {
                 enemyNotAboveMoveWeight++;
             }
 
-            if (timesMovedShotAbove >= prevTimesMovedShotAbove)
+            if (wasShot && enemyShotAboveMoveWeight < maxWeight)
+            {
+                enemyShotAboveMoveWeight++;
+            }
+            else if (timesMovedShotAbove >= prevTimesMovedShotAbove)
             {
                 enemyShotAboveMoveWeight--;
             }
             else if(enemyShotAboveMoveWeight < maxWeight)
             {
                 enemyShotAboveMoveWeight++;
+
             }
 
+
             //Shoot weights check
-            if (timesShotEnemyAbove >= prevTimesShotEnemyAbove)
+            if (!wasShot && enemyAboveShootWeight < maxWeight)
+            {
+                enemyAboveShootWeight++;
+            }
+            else if (timesShotEnemyAbove >= prevTimesShotEnemyAbove)
             {
                 enemyAboveShootWeight--;
             }

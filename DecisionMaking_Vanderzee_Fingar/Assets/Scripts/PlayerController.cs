@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour {
     public void shoot() {
         if (ableToShoot)
         {
-            GameObject aShot = Instantiate(shot, transform.position, Quaternion.identity) as GameObject;
+            Instantiate(shot, transform.position, Quaternion.identity);
             ableToShoot = false;
         }
     }
