@@ -28,6 +28,7 @@ public class NN : MonoBehaviour {
 
     private bool closeToRight = false;
     public bool nearestEnemyRight = false;
+    public bool nearestShotRight = false;
 
     private float moveLeft = 0f;
     private float moveRight = 0f;
@@ -86,7 +87,7 @@ public class NN : MonoBehaviour {
 
         closeToRight = false;
         nearestEnemyRight = false;
-
+        nearestShotRight = false;
 
         //===Close to Edge===
         if (pc.gameObject.transform.position.x < pc.minX + tooCloseToEdge) {
@@ -105,9 +106,12 @@ public class NN : MonoBehaviour {
         if (shots.Length != 0) {
             //float closestShot = Mathf.Infinity;
             for (int i = 0; i < shots.Length; i++) {
-                float distance = Mathf.Abs(shots[i].gameObject.transform.position.x - pc.transform.position.x);
+                float distance = Mathf.Abs(shots[i].gameObject.transform.position.x - pc.gameObject.transform.position.x);
                 if (distance < enemyShotClose) {
                     enemyShotAbove = true;
+                    if (shots[i].gameObject.transform.position.x > pc.gameObject.transform.position.x) {
+                        nearestShotRight = true;
+                    }
                 } 
             }
         }
@@ -120,13 +124,13 @@ public class NN : MonoBehaviour {
             float closestAlien = Mathf.Infinity;
             for (int i = 0; i < aliens.Length; i++)
             {
-                float distance = Mathf.Abs(aliens[i].gameObject.transform.position.x - pc.transform.position.x);
+                float distance = Mathf.Abs(aliens[i].gameObject.transform.position.x - pc.gameObject.transform.position.x);
                 if (distance < enemyClose){
                     enemyAbove = true;
                 }
                 if (distance < closestAlien){
                     closestAlien = distance;
-                    if(aliens[i].gameObject.transform.position.x > transform.position.x) {
+                    if(aliens[i].gameObject.transform.position.x > pc.gameObject.transform.position.x) {
                         nearestEnemyRight = true;
                     }
                     else {
@@ -140,8 +144,11 @@ public class NN : MonoBehaviour {
     void addWeights() {
 
         if (enemyShotAbove) {
-            moveLeft += enemyShotAboveMoveWeight;
-            moveRight += enemyShotAboveMoveWeight;
+            if (nearestShotRight) {
+                moveLeft += enemyShotAboveMoveWeight;
+            } else {
+                moveRight += enemyShotAboveMoveWeight;
+            }
             shoot += enemyShotAboveShootWeight;
         } 
 
@@ -284,6 +291,10 @@ public class NN : MonoBehaviour {
                 pc.moveRight();
             }
         }
+
+        moveLeft = 0;
+        moveRight = 0;
+        shoot = 0;
     }
     
     public void modifyWeights(bool wasShot) {
