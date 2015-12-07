@@ -37,7 +37,7 @@ public class LevelController : MonoBehaviour
 
         //Increment Level number and speed
         currentLevel++;
-        alienController.GetComponent<AlienController>().alienStep += alienController.GetComponent<AlienController>().origionalSpeed/2;
+        //alienController.GetComponent<AlienController>().alienStep += alienController.GetComponent<AlienController>().origionalSpeed/2;
 
 
     }
@@ -48,6 +48,8 @@ public class LevelController : MonoBehaviour
         //Update Generation
         playerController.GetComponent<PlayerController>().generation++;
         playerController.GetComponent<PlayerController>().text.text = "Generation " + playerController.GetComponent<PlayerController>().generation;
+
+        Debug.Log(alienController.GetComponent<AlienController>().score);
 
         nn.modifyWeights(wasShot);
         alienController.GetComponent<AlienController>().score = 0;
